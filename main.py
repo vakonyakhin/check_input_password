@@ -29,32 +29,35 @@ def has_symbol(text):
   return True
  
 
-
-def check_pass_value(list):
+def check_pass_value(text, list):
   value = 0
   for func in list:
-    if func:
+    if func(text):
       value += 2
       
   return value
 
 
 def main():
-  txt = input("password: ")
+  
+  ask = urwid.Edit('Тайный ввод: ', mask='*')
+  reply = urwid.Text("")
+  menu = urwid.Pile([ask, reply])
+  menu = urwid.Filler(menu, valign='top')
+  def on_ask_change(edit, new_edit_text):
+    reply.set_text("Вы тайно написали: %s" % check_pass_value(new_edit_text, functions))
 
   functions = [
-              check_length_pass(txt), 
-              has_upper(txt), 
-              has_lower(txt), 
-              has_alpha(txt), 
-              has_digit(txt),
-              has_symbol(txt)
+              check_length_pass, 
+              has_upper, 
+              has_lower, 
+              has_alpha, 
+              has_digit,
+              has_symbol
               ]
   
-  
-  print("value:", check_pass_value(functions))
-  
-
+  urwid.connect_signal(ask, 'change', on_ask_change)
+  urwid.MainLoop(menu).run()
 if __name__ == "__main__":
   main()
 
