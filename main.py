@@ -2,10 +2,8 @@ import urwid
 
 
 def check_length_pass(text):
-  if len(text) > 12:
-    return True
-  return False  
-
+  return len(text) > 12
+     
 
 def has_digit(text):
   return any(letter.isdigit() for letter in text)
@@ -24,9 +22,8 @@ def has_upper(text):
 
 
 def has_symbol(text):
-  if text.isalnum():
-    return False
-  return True
+  return not text.isalnum()
+
  
 
 def check_pass_value(text, list):
@@ -44,9 +41,6 @@ def main():
   reply = urwid.Text("")
   menu = urwid.Pile([ask, reply])
   menu = urwid.Filler(menu, valign='top')
-  def on_ask_change(edit, new_edit_text):
-    reply.set_text("Вы тайно написали: %s" % check_pass_value(new_edit_text, functions))
-
   functions = [
               check_length_pass, 
               has_upper, 
@@ -55,6 +49,10 @@ def main():
               has_digit,
               has_symbol
               ]
+
+  def on_ask_change(edit, new_edit_text):
+    reply.set_text("Вы тайно написали: %s" % check_pass_value(new_edit_text, functions))
+
   
   urwid.connect_signal(ask, 'change', on_ask_change)
   urwid.MainLoop(menu).run()
