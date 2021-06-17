@@ -37,21 +37,21 @@ def check_pass_value(text, list):
 
 def main():
   
-  ask = urwid.Edit('Тайный ввод: ', mask='*')
+  ask = urwid.Edit('Введите пароль: ', mask='*')
   reply = urwid.Text("")
   menu = urwid.Pile([ask, reply])
   menu = urwid.Filler(menu, valign='top')
   functions = [
-              check_length_pass, 
               has_upper, 
               has_lower, 
-              has_alpha, 
               has_digit,
-              has_symbol
+              has_symbol,
+              check_length_pass,
+              has_alpha
               ]
 
   def on_ask_change(edit, new_edit_text):
-    reply.set_text("Вы тайно написали: %s" % check_pass_value(new_edit_text, functions))
+    reply.set_text("Рейтинг этого пароля: %s" % check_pass_value(new_edit_text, functions))
 
   
   urwid.connect_signal(ask, 'change', on_ask_change)
