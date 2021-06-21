@@ -26,7 +26,7 @@ def has_symbol(text):
 
 
 
-def check_pass_value(text, list):
+def get_pass_value(text, list):
   value = 0
   for func in list:
     if func(text):
@@ -40,7 +40,7 @@ def main():
   reply = urwid.Text("")
   menu = urwid.Pile([ask, reply])
   menu = urwid.Filler(menu, valign='top')
-  functions = [
+  valuation_pass_functions = [
       has_upper, 
       has_lower, 
       has_digit,
@@ -50,7 +50,7 @@ def main():
   ]
 
   def on_ask_change(edit, new_edit_text):
-    reply.set_text("Рейтинг этого пароля: %s" % check_pass_value(new_edit_text, functions))
+    reply.set_text("Рейтинг этого пароля: %s" % get_pass_value(new_edit_text, valuation_pass_functions))
 
 
   urwid.connect_signal(ask, 'change', on_ask_change)
