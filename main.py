@@ -25,11 +25,10 @@ def has_symbol(text):
   return not text.isalnum()
 
 
-
-def get_pass_value(text, list):
+def get_pass_value(text, valuation_functions):
   value = 0
-  for func in list:
-    if func(text):
+  for function in valuation_functions:
+    if function(text):
       value += 2    
   return value
 
