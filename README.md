@@ -8,11 +8,11 @@
 Python3 уже должен быть установлен. Рекомендуется использовать venv для изоляции проекта
 
 Затем используйте pip
-
-    pip install -r requirements.txt
-    
+```python
+pip install -r requirements.txt
+```
 ## Пример запуcка из командной строки: 
-
-    python main.py
-
+```python
+python main.py
+```
 Выход осуществляться через CTRL+C
