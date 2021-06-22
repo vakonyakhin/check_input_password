@@ -36,7 +36,9 @@ def get_pass_value(text, valuation_functions):
 def main():
   
   ask = urwid.Edit('Введите пароль: ', mask='*')
+  print(ask)
   reply = urwid.Text("")
+  print(reply)
   menu = urwid.Pile([ask, reply])
   menu = urwid.Filler(menu, valign='top')
   valuation_pass_functions = [
@@ -47,9 +49,11 @@ def main():
       check_length_pass,
       has_alpha
   ]
+  
 
   def on_ask_change(edit, new_edit_text):
-    reply.set_text("Рейтинг этого пароля: %s" % get_pass_value(new_edit_text, valuation_pass_functions))
+    value  = get_pass_value(new_edit_text, valuation_pass_functions)
+    reply.set_text("Рейтинг этого пароля: %s" % value)
 
 
   urwid.connect_signal(ask, 'change', on_ask_change)
