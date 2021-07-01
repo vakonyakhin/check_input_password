@@ -15,4 +15,4 @@ pip install -r requirements.txt
 ```python
 python main.py
 ```
-Выход осуществляться через CTRL+C
+Выход осуществляется через CTRL+C
