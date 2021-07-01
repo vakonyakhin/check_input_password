@@ -25,22 +25,7 @@ def has_symbol(text):
   return not text.isalnum()
 
 
-def get_pass_value(text, valuation_functions):
-  value = 0
-  for function in valuation_functions:
-    if function(text):
-      value += 2    
-  return value
-
-
-def main():
-  
-  ask = urwid.Edit('Введите пароль: ', mask='*')
-  print(ask)
-  reply = urwid.Text("")
-  print(reply)
-  menu = urwid.Pile([ask, reply])
-  menu = urwid.Filler(menu, valign='top')
+def get_pass_value(text):
   valuation_pass_functions = [
       has_upper, 
       has_lower, 
@@ -49,15 +34,27 @@ def main():
       check_length_pass,
       has_alpha
   ]
+  value = 0
   
+  for function in valuation_pass_functions:
+    if function(text):
+      value += 2    
+  return value
 
-  def on_ask_change(edit, new_edit_text):
-    value  = get_pass_value(new_edit_text, valuation_pass_functions)
+
+def on_ask_change(edit, new_edit_text):
+    value  = get_pass_value(new_edit_text)
     reply.set_text("Рейтинг этого пароля: %s" % value)
 
 
+if __name__ == "__main__":
+
+  
+  ask = urwid.Edit('Введите пароль: ', mask='*')
+  reply = urwid.Text("")
+  menu = urwid.Pile([ask, reply])
+  menu = urwid.Filler(menu, valign='top')
+  
   urwid.connect_signal(ask, 'change', on_ask_change)
   urwid.MainLoop(menu).run()
-if __name__ == "__main__":
-  main()
 
